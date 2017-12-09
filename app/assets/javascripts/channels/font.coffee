@@ -1,6 +1,9 @@
 
+log = (obj) ->
+  console.log(obj)
+
 @handleError = (id) ->
-  console.log("Disconnected")
+  log("Disconnected")
 
 @setDownloadLink = (blob) ->
   document.querySelector("#font_file_link").href = URL.createObjectURL(blob)
@@ -16,11 +19,12 @@
   document.querySelector("#font_progress_bar").value = value
 
 @downloadFont = (id, url) ->
-  console.log("downloadFont: #{id}")
+  log("downloadFont: #{id}")
   xhr = new XMLHttpRequest()
   xhr.open("GET", url, true)
   xhr.responseType = "blob"
   xhr.onload = (e) ->
+    log("load completes.")
     blob = xhr.response
     updateProgressBar("download", 1.0)
     setDownloadLink(blob)
@@ -31,12 +35,13 @@
   xhr.ontimeout = ->
     handleError(id)
   xhr.onprogress = (e) ->
+    log("onprogress")
     if e.lengthComputable
       updateProgressBar("download", e.loaded / e.total)
   xhr.send()
 
 @updateProgressState = (id, count) ->
-  console.log("updateProgressState: #{id}:#{count}")
+  log("updateProgressState: #{id}:#{count}")
   updateProgressBar("create", count/10)
 
 @connectFontCreator = (id, url) ->
