@@ -1,0 +1,7 @@
+<h1>Creating your font...</h1>
+<progress id="font_progress_bar" max="100" value="0"></progress>
+<%= javascript_tag do %>
+  var con = connectFontCreator("<%= raw(j(@font_id)) %>", "<%= raw(j(font_file_font_path(@font_id))) %>");
+<% end %>
+
+<p><a id="font_file_link" download="LigatureYourName.ttf">フォントファイル</a></p>

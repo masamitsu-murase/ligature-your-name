@@ -1,0 +1,17 @@
+<h1>New Font</h1>
+
+<%= form_tag(fonts_path, method: :post) do %>
+  <% 2.times do |i| %>
+    <% name = "font_data[ligature_list][]" %>
+    <dl>
+      <dt>対象文字列</dt>
+      <dd><%= text_field_tag "#{name}[ligature]", "", id: "ligature#{i}" %></dd>
+      <dt>文字装飾</dt>
+      <dd><%= select_tag "#{name}[deco_type]",
+        options_for_select({"なし": 0, "白抜き": 1, "下線": 2, "上線": 3, "上下線": 4}),
+        id: "deco_type#{i}" %></dd>
+      <dt>太字</dt>
+      <dd><%= check_box_tag "#{name}[bold]", true, false, id: "bold#{i}" %></dd>
+  <% end %>
+  <%= submit_tag "作成" %>
+<% end %>

@@ -13,6 +13,10 @@
 !/log/.keep
 !/tmp/.keep
 
+/resource/*.ttf
+/resource/*.ttc
+/resource/*.otf
+
 /node_modules
 /yarn-error.log
 
