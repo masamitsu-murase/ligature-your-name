@@ -6,7 +6,14 @@ log = (obj) ->
   log("Disconnected")
 
 @setDownloadLink = (blob) ->
-  document.querySelector("#font_file_link").href = URL.createObjectURL(blob)
+  link_elem = document.querySelector("#font_file_link")
+  if window.navigator.msSaveBlob
+    # For IE.
+    link_elem.addEventListener "click", (e) ->
+      window.navigator.msSaveBlob blob, link_elem.getAttribute("download")
+      e.preventDefault()
+  else:
+    link_elem.href = URL.createObjectURL(blob)
 
 @updateProgressBar = (type, value) ->
   if type == "create"
