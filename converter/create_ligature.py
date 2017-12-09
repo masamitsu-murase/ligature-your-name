@@ -7,8 +7,8 @@ import json
 import fontforge
 import psMat
 
-BASE_RESOURCE_FILE = "../resource/LigatureYourName.sfd"
-BOLD_BASE_RESOURCE_FILE = "../resource/LigatureYourNameBold.sfd"
+BASE_RESOURCE_FILE = "../resource/LigatureYourNameTtf.sfd"
+BOLD_BASE_RESOURCE_FILE = "../resource/LigatureYourNameTtfBold.sfd"
 
 DEST_POS_START = 0xEA00
 TEMP_POS = 0xE9FF
