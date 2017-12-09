@@ -60,7 +60,8 @@ class FontsController < ApplicationController
     when :invalid, :creating, :prepared
       raise ActionController::RoutingError.new('Not Found') unless filepath.file?
     when String
-      send_file(TEMPFILE_DIR + state_or_filename, filename: "LigatureYourName.ttf", content_type: "application/octet-stream")
+      filepath = TEMPFILE_DIR + state_or_filename
+      send_file(filepath, filename: "LigatureYourName.ttf", content_type: "application/octet-stream")
     end
   end
 end
