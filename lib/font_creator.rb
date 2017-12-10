@@ -27,7 +27,7 @@ class FontCreator
   end
 
   def create_font
-    ret = system("fontforge -nosplash -quiet -lang=py -script create_ligature.py #{json_filepath} #{font_temp_filepath}", chdir: @script_path)
+    ret = system("fontforge -nosplash -lang=py -script create_ligature.py #{json_filepath} #{font_temp_filepath}", chdir: @script_path)
     raise "fontforge failed" unless ret
 
     FileUtils.mv(font_temp_filepath, font_filepath)
