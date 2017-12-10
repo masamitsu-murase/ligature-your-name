@@ -55,10 +55,10 @@ def decorate(font, glyph, deco_type):
 
     if deco_type == DECORATE_INVERSE:
         pen = glyph.glyphPen(replace=False)
-        pen.moveTo(0, ascent)
-        pen.lineTo(width, ascent)
-        pen.lineTo(width, -descent)
-        pen.lineTo(0, -descent)
+        pen.moveTo(0, ascent + height * line_ratio / 2)
+        pen.lineTo(width, ascent + height * line_ratio / 2)
+        pen.lineTo(width, -descent - height * line_ratio / 2)
+        pen.lineTo(0, -descent - height * line_ratio / 2)
         pen.closePath()
     if deco_type in (DECORATE_BOTTOMLINE, DECORATE_BOTHLINE):
         pen = glyph.glyphPen(replace=False)
