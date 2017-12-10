@@ -3,11 +3,13 @@ require "font_creator"
 
 class FontsController < ApplicationController
   TEMPFILE_DIR = LigatureYourName::TEMPFILE_DIR
+  MAX_LIGATURE_SIZE = 10
 
   def create
-    permitted = params.require(:font_data).permit(ligature_list: [:ligature, :deco_type, :bold])
+    params_hash = params.to_unsafe_hash
+    ligature_list = MAX_LIGATURE_SIZE.to_enum(:times).map{ |i| params_hash["font_data"]["ligature_list"][i.to_s] }.select(&:present?)
     converted_params = {
-      "ligature_list" => permitted["ligature_list"].map{ |i|
+      "ligature_list" => ligature_list.map{ |i|
         next nil if i["ligature"].blank?
         next {
           "ligature" => i["ligature"],
@@ -34,6 +36,9 @@ class FontsController < ApplicationController
     @font_id = font_creator.id
 
     redirect_to font_path(@font_id)
+  rescue
+    flash[:error] = "エラーが発生しました。もう一度、試してください。"
+    redirect_to new_font_path
   end
 
   def show

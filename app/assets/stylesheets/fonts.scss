@@ -1,3 +1,35 @@
 // Place all the styles related to the fonts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+h1 {
+    padding-left: 1em;
+}
+
+p.error_message {
+    color: red;
+}
+img.deco_type {
+    height: 34px;
+}
+
+#progress_bar_div {
+    width: 100%;
+}
+#font_progress_bar {
+    display: block;
+    padding: 0px;
+    margin-left: auto;
+    width: 95%;
+    margin-right: auto;
+}
+p.creating, p.download, p.error {
+    text-align: center;
+}
+#font_file_link {
+    margin-right: 2em;
+
+    img {
+        width: 1.25em;
+    }
+}

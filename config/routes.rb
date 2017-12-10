@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :fonts, only: [:create, :new, :show] do
     get :font_file, on: :member
   end
+  root to: "fonts#new"
 end
