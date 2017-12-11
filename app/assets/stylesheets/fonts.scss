@@ -2,14 +2,40 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body {
+    background-color: #7FC6A6;
+}
+
 h1 {
-    padding-left: 1em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    border-radius: 1em 1em 0px 0px;
+    padding: 1em;
+    background-color: #FFF;
+}
+
+fieldset {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    background-color: #FFF;
+
+    dl {
+        margin: 0px;
+        padding: 0px;
+    }
 }
 
 p.error_message {
     color: red;
 }
+
+@media all and (-ms-high-contrast:none) {
+    *::-ms-backdrop, .deco_type > label > img { pointer-events: none; } /* IE11 */
+}
+
 .deco_type > label {
+    display: inline-block;
+
     > input[type=radio] {
         display: none;
     }
@@ -21,6 +47,7 @@ p.error_message {
         border-radius: 5px;
         transform: rotateY(-360deg);
         transition-property: none;
+
         &:hover {
             border-color: #9FE6C6;
         }
@@ -44,8 +71,8 @@ p.error_message {
     border-radius: 2em;
     border: 4px solid #7FC6A6;
     padding: 2px;
-    width: 4em;
-    height: 2em;
+    width: 2em;
+    height: 1em;
     position: relative;
 
     &::after {
