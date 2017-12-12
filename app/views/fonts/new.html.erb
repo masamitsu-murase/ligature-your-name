@@ -9,9 +9,9 @@
   <fieldset>
     <% name = "font_data[ligature_list][#{i}]" %>
     <dl>
-      <dt>対象文字列</dt>
+      <dt>キーワード <%= i+1 %></dt>
       <dd><%= text_field_tag "#{name}[ligature]", "", id: "ligature#{i}", size: 10, maxlength: 10 %></dd>
-      <dt>文字装飾</dt>
+      <dt>装飾</dt>
       <dd class="deco_type"><%= label_tag "radio_1_#{i}" do %><%= radio_button_tag "#{name}[deco_type]", "1", true, id: "radio_1_#{i}" %><%= image_tag("inverse.png", alt: "白黒反転") %><% end %>
         <%= label_tag "radio_2_#{i}" do %><%= radio_button_tag "#{name}[deco_type]", "2", false, id: "radio_2_#{i}" %><%= image_tag("bottomline.png", alt: "下線") %><% end %>
         <%= label_tag "radio_3_#{i}" do %><%= radio_button_tag "#{name}[deco_type]", "3", false, id: "radio_3_#{i}" %><%= image_tag("topline.png", alt: "上線") %><% end %>
@@ -23,5 +23,5 @@
     </dl>
   </fieldset>
   <% end %>
-  <%= submit_tag "作成" %>
+  <div class="submit"><%= submit_tag "作成" %></div>
 <% end %>
