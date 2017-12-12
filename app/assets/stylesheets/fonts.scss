@@ -97,6 +97,30 @@ p.error_message {
     background-color: #7FC6A6;
 }
 
+input[type=submit] {
+    border-radius: 2px;
+    box-shadow: 0 6px #4063A4;
+    margin: 0px 20px 40px;
+    padding: 1em 2em;
+    border: none;
+    display: inline-block;
+    background-color: #5A7AB3;
+    color: #FFF;
+    cursor: pointer;
+    font-size: 1em;
+
+    &:hover {
+        margin-top: 1px;
+        margin-bottom: 39px;
+        box-shadow: 0 5px #4063A4;
+    }
+    &:active {
+        margin-top: 5px;
+        margin-bottom: 35px;
+        box-shadow: 0 1px #4063A4;
+    }
+}
+
 #progress_bar_div {
     width: 100%;
 }
