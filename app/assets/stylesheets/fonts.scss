@@ -6,13 +6,16 @@ body {
     background-color: #7FC6A6;
 }
 
+div.base {
+    max-width: 800px;
+}
+
 h1 {
     margin: 0.5em 10px 0em 10px;
     border: 2px solid #7FC6A6;
     border-radius: 1em 1em 0px 0px;
     padding: 0.5em 1em;
     background-color: #FFF;
-    max-width: 800px;
 }
 
 p.error_message {
@@ -32,7 +35,6 @@ fieldset {
     margin: 0px 10px;
     border: 2px solid #7FC6A6;
     background-color: #FFF;
-    max-width: 800px;
 
     dl {
         margin: 0px;
@@ -151,7 +153,6 @@ div#progress_bar_div {
     border: 2px solid #7FC6A6;
     padding: 0px 1em;
     background-color: #FFF;
-    max-width: 800px;
 }
 div.submit, p.creating, p.download, p.error {
     margin: 0em 10px 0.5em 10px;
@@ -159,7 +160,6 @@ div.submit, p.creating, p.download, p.error {
     border-radius: 0px 0px 1em 1em;
     padding: 0px 1em;
     background-color: #FFF;
-    max-width: 800px;
 }
 input[type=submit], #font_file_link {
     border-radius: 5px;
