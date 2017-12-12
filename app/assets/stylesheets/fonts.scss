@@ -7,26 +7,79 @@ body {
 }
 
 h1 {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+    margin: 0.5em 10px 0em 10px;
+    border: 2px solid #7FC6A6;
     border-radius: 1em 1em 0px 0px;
-    padding: 1em;
+    padding: 0.5em 1em;
     background-color: #FFF;
+    max-width: 800px;
+}
+
+p.error_message {
+    margin: 0em 10px 0em 10px;
+    border: 2px solid #7FC6A6;
+    padding: 0.5em 1em;
+    background-color: #FFF;
+    color: red;
+}
+
+form {
+    margin: 0px;
+    padding: 0px;
 }
 
 fieldset {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+    margin: 0px 10px;
+    border: 2px solid #7FC6A6;
     background-color: #FFF;
+    max-width: 800px;
 
     dl {
         margin: 0px;
         padding: 0px;
-    }
-}
+        
+        dt {
+            display: block;
+            float: left;
+            font-size: large;
 
-p.error_message {
-    color: red;
+            &::after {
+                content: "\00A0";
+            }
+            &:nth-of-type(3n+2) {
+                line-height: 48px;
+            }
+            &:nth-of-type(3n+3) {
+                padding-top: 6px;
+                line-height: 1.5em;
+            }
+        }
+        dd {
+            display: block;
+            padding-bottom: 10px;
+
+            &:first-of-type {
+                font-size: large;
+
+                input[type=text] {
+                    font-size: large;
+                    width: 10em;
+                    border-style: solid;
+                    border-color: #888;
+
+                    &:focus {
+                        border-color: #7FC6A6;
+                    }
+                }
+            }
+            &:last-of-type {
+                padding-bottom: 0px;
+            }
+        }
+        // dt:nth-of-type(3n+1), dd:nth-of-type(3n+1) {
+        //     line-height: 1em;
+        // }
+    }
 }
 
 @media all and (-ms-high-contrast:none) {
@@ -42,24 +95,19 @@ p.error_message {
     > img {
         height: 34px;
         display: inline-block;
-        padding: 0px;
-        border: 7px solid transparent;
-        border-radius: 5px;
-        transform: rotateY(-360deg);
-        transition-property: none;
+        padding: 0px 0px 1px 0px;
+        border-bottom: 7px solid transparent;
+        // transform: rotateY(-360deg);
+        // transition-property: none;
 
         &:hover {
             border-color: #9FE6C6;
         }
     }
     > input[type=radio]:checked + img {
-        background-color: #7FC6A6;
         border-color: #7FC6A6;
-        transform: rotateY(0deg);
-        transition: all 0.3s ease;
-        &:hover {
-            border-color: #9FE6C6;
-        }
+        // transform: rotateY(0deg);
+        // transition: all 0.3s ease;
     }
 }
 .bold > input[type=checkbox] {
@@ -68,11 +116,12 @@ p.error_message {
 .bold > label {
     display: block;
     background-color: #FFF;
-    border-radius: 2em;
+    border-radius: 3em;
     border: 4px solid #7FC6A6;
     padding: 2px;
-    width: 2em;
-    height: 1em;
+    width: 3em;
+    height: 1.5em;
+    left: 3px;
     position: relative;
 
     &::after {
@@ -97,47 +146,56 @@ p.error_message {
     background-color: #7FC6A6;
 }
 
-input[type=submit] {
-    border-radius: 2px;
-    box-shadow: 0 6px #4063A4;
-    margin: 0px 20px 40px;
-    padding: 1em 2em;
+div#progress_bar_div {
+    margin: 0em 10px 0em 10px;
+    border: 2px solid #7FC6A6;
+    padding: 0px 1em;
+    background-color: #FFF;
+    max-width: 800px;
+}
+div.submit, p.creating, p.download, p.error {
+    margin: 0em 10px 0.5em 10px;
+    border: 2px solid #7FC6A6;
+    border-radius: 0px 0px 1em 1em;
+    padding: 0px 1em;
+    background-color: #FFF;
+    max-width: 800px;
+}
+input[type=submit], #font_file_link {
+    border-radius: 5px;
+    box-shadow: 0 6px #cc7204;
+    margin: 10px 20px 20px 20px;
+    padding: 0.25em 0.7em;
     border: none;
     display: inline-block;
-    background-color: #5A7AB3;
+    background-color: #EF4431;
     color: #FFF;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
 
     &:hover {
-        margin-top: 1px;
-        margin-bottom: 39px;
-        box-shadow: 0 5px #4063A4;
+        margin-top: 11px;
+        margin-bottom: 19px;
+        box-shadow: 0 5px #cc7204;
     }
     &:active {
-        margin-top: 5px;
-        margin-bottom: 35px;
-        box-shadow: 0 1px #4063A4;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 1px #cc7204;
     }
 }
 
-#progress_bar_div {
-    width: 100%;
-}
 #font_progress_bar {
     display: block;
     padding: 0px;
-    margin-left: auto;
+    border: none;
+    margin: 5px auto;
     width: 95%;
-    margin-right: auto;
+    height: 2em;
 }
 p.creating, p.download, p.error {
     text-align: center;
-}
-#font_file_link {
-    margin-right: 2em;
-
-    img {
-        width: 1.25em;
-    }
+    font-size: large;
 }
