@@ -18,6 +18,12 @@ h1 {
     background-color: #FFF;
 }
 
+@media screen and (max-width: 480px){
+    h1 {
+        font-size: 20px;
+    }
+}
+
 p.error_message {
     margin: 0em 10px 0em 10px;
     border: 2px solid #7FC6A6;
