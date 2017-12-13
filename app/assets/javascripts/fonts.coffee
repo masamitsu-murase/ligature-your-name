@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 log = (obj) ->
-  console.log(obj)
+  # console.log(obj)
 
 initialSetting = ->
   document.querySelector("p.creating").style.display = "block"
