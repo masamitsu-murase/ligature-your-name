@@ -8,6 +8,8 @@ class FontCreator
   TEMPFILE_NAME_SEPARATOR = "__"
   RAND = Random.new
   SCRIPT_PATH = (Pathname(__dir__).parent + "converter").cleanpath
+  ROOT_DIR = Pathname(__dir__).parent.cleanpath
+  FONT_FILENAME = "LigatureYourName.ttf"
 
   def initialize(ligature_list_obj, temp_dir, script_path=SCRIPT_PATH)
     check_ligature_list(ligature_list_obj)
@@ -30,11 +32,15 @@ class FontCreator
     ret = system("fontforge -nosplash -lang=py -script create_ligature.py #{json_filepath} #{font_temp_filepath}", chdir: @script_path)
     raise "fontforge failed" unless ret
 
-    FileUtils.mv(font_temp_filepath, font_filepath)
+    Bundler.with_clean_env do
+        ret = system("bundle exec ruby converter/zipper.rb #{font_temp_filepath} #{FONT_FILENAME} #{zip_filepath}", chdir: ROOT_DIR.to_s)
+        raise "zip file error" unless ret
+    end
+    FileUtils.rm_f(font_temp_filepath)
   end
 
   def clear
-    [json_filepath, font_filepath, font_temp_filepath].each do |filepath|
+    [json_filepath, zip_filepath, font_temp_filepath].each do |filepath|
       FileUtils.rm_f(filepath) if File.file? filepath
     end
   end
@@ -43,12 +49,12 @@ class FontCreator
     @temp_dir + [prefix, @id, @timestamp, suffix].join(TEMPFILE_NAME_SEPARATOR)
   end
 
-  def json_filepath
-    temp_filepath("json", ".json")
+  def zip_filepath
+    temp_filepath("zip", ".zip")
   end
 
-  def font_filepath
-    temp_filepath("font", ".ttf")
+  def json_filepath
+    temp_filepath("json", ".json")
   end
 
   def font_temp_filepath
@@ -81,8 +87,8 @@ class FontCreator
       return :invalid if font_files.size == 0
 
       font_file = font_files[font_files.keys.max]
-      if font_file["font"] && File.file?(temp_dir + font_file["font"])
-        return font_file["font"]
+      if font_file["zip"] && File.file?(temp_dir + font_file["zip"])
+        return font_file["zip"]
       elsif font_file["tmpfnt"] && File.file?(temp_dir + font_file["tmpfnt"])
         return :creating
       elsif font_file["json"] && File.file?(temp_dir + font_file["json"])
@@ -112,8 +118,8 @@ class FontCreator
         end
 
         case type
-        when "font"
-          hash["font"] = file
+        when "zip"
+          hash["zip"] = file
         when "json"
           hash["json"] = file
         when "tmpfnt"
@@ -133,7 +139,7 @@ class FontCreator
 
       if sorted_font_files.size > max_count
         sorted_font_files[0, sorted_font_files.size - max_count].each do |item|
-          ["font", "json", "tmpfnt"].each do |type|
+          ["zip", "json", "tmpfnt"].each do |type|
             FileUtils.rm_f(item[type]) if item[type] && File.file?(item[type])
           end
         end
@@ -142,7 +148,7 @@ class FontCreator
 
       sorted_font_files.each do |item|
         if item["timestamp"] < base
-          ["font", "json", "tmpfnt"].each do |type|
+          ["zip", "json", "tmpfnt"].each do |type|
             FileUtils.rm_f(temp_dir + item[type]) if item[type] && File.file?(temp_dir + item[type])
           end
         end
