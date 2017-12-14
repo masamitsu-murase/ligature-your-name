@@ -45,10 +45,13 @@ downloadFont = (id, url) ->
   xhr.open("GET", url, true)
   xhr.responseType = "blob"
   xhr.onload = (e) ->
-    log("load completes.")
-    blob = xhr.response
-    updateProgressBar("download", 1.0)
-    setDownloadLink(blob)
+    log("load completes. #{xhr.status}")
+    if xhr.status == 200
+      blob = xhr.response
+      updateProgressBar("download", 1.0)
+      setDownloadLink(blob)
+    else
+      handleError(id)
   xhr.onerror = ->
     handleError(id)
   xhr.onabort = ->
