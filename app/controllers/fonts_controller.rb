@@ -66,7 +66,7 @@ class FontsController < ApplicationController
       raise ActionController::RoutingError.new('Not Found') unless filepath.file?
     when String
       filepath = TEMPFILE_DIR + state_or_filename
-      send_file(filepath, filename: "LigatureYourName.zip", content_type: "application/zip")
+      send_file(filepath, filename: "LigatureYourName.ttf", content_type: "application/octet-stream")
     end
   end
 end
