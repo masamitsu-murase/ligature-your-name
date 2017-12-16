@@ -8,8 +8,8 @@
 <div class="base">
 <h1>LigatureYourName</h1>
 <div id="progress_bar_div"><progress id="font_progress_bar" max="100" value="0"></progress></div>
-<p class="creating">作成中...</p>
-<p class="download" style="display: none;"><%= link_to "ダウンロード", font_file_font_path(@font_id, font_type: @font_type), id: "font_file_link", download: "LigatureYourName.#{@font_type}" %> <%= link_to "戻る", new_font_path %></p>
+<p class="creating">作成中... <a class="blog" target="_blank" href="http://masamitsu-murase.blogspot.com/2017/12/outlook_16.html">説明ページ</a></p>
+<p class="download" style="display: none;"><%= link_to "ダウンロード", font_file_font_path(@font_id, font_type: @font_type), id: "font_file_link", download: "LigatureYourName.#{@font_type}" %> <a class="blog" target="_blank" href="http://masamitsu-murase.blogspot.com/2017/12/outlook_16.html">説明ページ</a> <%= link_to "戻る", new_font_path %></p>
 <p class="error" style="display: none;">エラーが発生しました。<br />
 申し訳ありませんが、<%= link_to "最初のページ", new_font_path %>に戻ってやり直してください。</p>
 </div>
