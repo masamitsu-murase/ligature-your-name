@@ -16,8 +16,7 @@ class FontsController < ApplicationController
           "deco_type" => i["deco_type"].to_i,
           "bold" => (i["bold"] == "true")
         }
-      }.select(&:present?),
-      "fonttype" => "truetype"
+      }.select(&:present?)
     }
     # obj = {
     #   "ligature_list" => [
@@ -27,15 +26,16 @@ class FontsController < ApplicationController
     #       "bold" => true
     #     }
     #   ],
-    #   "fonttype" => "truetype"
+    #   "font_type" => "ttf"
     # }
 
-    font_creator = FontCreator.new(converted_params, TEMPFILE_DIR)
+    font_type = (params[:font_type] == "ttf" ? "ttf" : "otf")
+    font_creator = FontCreator.new(converted_params, TEMPFILE_DIR, font_type)
     font_creator.create_json_file
     FontforgeJob.perform_later(Marshal.dump(font_creator))
     @font_id = font_creator.id
 
-    redirect_to font_path(@font_id)
+    redirect_to font_path(@font_id, font_type: font_creator.font_type)
   rescue
     flash[:error] = "エラーが発生しました。もう一度、試してください。"
     redirect_to new_font_path
@@ -43,12 +43,14 @@ class FontsController < ApplicationController
 
   def show
     id = params[:id].to_s
+    @font_type = (params[:font_type].to_s == "ttf" ? "ttf" : "otf")
     state_or_filename = FontCreator.font_state(id, TEMPFILE_DIR)
 
     @complete = false
     case state_or_filename
     when :invalid
-      raise ActionController::RoutingError.new("Font Not Found")
+      flash[:error] = "ファイルが見つかりません。もう一度、試してください。"
+      redirect_to new_font_path
     when String
       @font_id = id
       @complete = true
@@ -59,14 +61,16 @@ class FontsController < ApplicationController
 
   def font_file
     id = params[:id]
+    font_type = (params[:font_type].to_s == "ttf" ? "ttf" : "otf")
     state_or_filename = FontCreator.font_state(id, TEMPFILE_DIR)
 
     case state_or_filename
     when :invalid, :creating, :prepared
-      raise ActionController::RoutingError.new('Not Found') unless filepath.file?
+      flash[:error] = "ファイルが見つかりません。もう一度、試してください。"
+      redirect_to new_font_path
     when String
       filepath = TEMPFILE_DIR + state_or_filename
-      send_file(filepath, filename: "LigatureYourName.ttf", content_type: "application/octet-stream")
+      send_file(filepath, filename: "LigatureYourName.#{font_type}", content_type: "application/octet-stream")
     end
   end
 end

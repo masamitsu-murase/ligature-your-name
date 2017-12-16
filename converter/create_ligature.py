@@ -7,10 +7,14 @@ import json
 import fontforge
 import psMat
 
-# BASE_RESOURCE_FILE = "../resource/LigatureYourName.sfd"
-# BOLD_BASE_RESOURCE_FILE = "../resource/LigatureYourNameBold.sfd"
-BASE_RESOURCE_FILE = "../resource/LigatureYourNameTtf.sfd"
-BOLD_BASE_RESOURCE_FILE = "../resource/LigatureYourNameTtfBold.sfd"
+BASE_RESOURCE_FILE = {
+    "otf": "../resource/LigatureYourName.sfd",
+    "ttf": "../resource/LigatureYourNameTtf.sfd"
+}
+BOLD_BASE_RESOURCE_FILE = {
+    "otf": "../resource/LigatureYourNameBold.sfd",
+    "ttf": "../resource/LigatureYourNameTtfBold.sfd"
+}
 
 # Store ligatures in private area.
 DEST_POS_START = 0xEA00
@@ -108,13 +112,13 @@ def create_ligature(font, bold_font, src_list, dest_pos, temp_pos, deco_type, bo
 
     decorate(font, glyph, deco_type)
 
-def convert(input_json_filename, output_filename):
+def convert(input_json_filename, output_filename, font_type):
     input_data = None
     with open(input_json_filename, "r") as input_json:
         input_data = json.load(input_json)
 
-    font = fontforge.open(BASE_RESOURCE_FILE)
-    bold_font = fontforge.open(BOLD_BASE_RESOURCE_FILE)
+    font = fontforge.open(BASE_RESOURCE_FILE[font_type])
+    bold_font = fontforge.open(BOLD_BASE_RESOURCE_FILE[font_type])
 
     add_lookup(font)
 
@@ -131,4 +135,4 @@ def convert(input_json_filename, output_filename):
     font.close()
 
 if __name__ == "__main__":
-    convert(sys.argv[1], sys.argv[2])
+    convert(sys.argv[1], sys.argv[2], sys.argv[3])

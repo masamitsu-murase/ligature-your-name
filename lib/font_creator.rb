@@ -9,16 +9,17 @@ class FontCreator
   RAND = Random.new
   SCRIPT_PATH = (Pathname(__dir__).parent + "converter").cleanpath
 
-  def initialize(ligature_list_obj, temp_dir, script_path=SCRIPT_PATH)
+  def initialize(ligature_list_obj, temp_dir, font_type="ttf", script_path=SCRIPT_PATH)
     check_ligature_list(ligature_list_obj)
     @ligature_list_obj = ligature_list_obj
     @json_data = JSON.generate(ligature_list_obj)
     @id = font_id(@json_data)
     @temp_dir = Pathname(temp_dir.to_s)
+    @font_type = font_type
     @timestamp = Time.now.to_f.to_s
     @script_path = script_path
   end
-  attr_reader :id, :temp_dir, :timestamp
+  attr_reader :id, :temp_dir, :timestamp, :font_type
 
   def create_json_file
     File.open(json_filepath, "w") do |file|
@@ -27,7 +28,7 @@ class FontCreator
   end
 
   def create_font
-    ret = system("fontforge -nosplash -lang=py -script create_ligature.py #{json_filepath} #{font_temp_filepath}", chdir: @script_path)
+    ret = system("fontforge -nosplash -lang=py -script create_ligature.py #{json_filepath} #{font_temp_filepath} #{font_type}", chdir: @script_path)
     raise "fontforge failed" unless ret
 
     FileUtils.mv(font_temp_filepath, font_filepath)
@@ -48,11 +49,19 @@ class FontCreator
   end
 
   def font_filepath
-    temp_filepath("font", ".ttf")
+    if @font_type == "ttf"
+      temp_filepath("font", ".ttf")
+    else
+      temp_filepath("font", ".otf")
+    end
   end
 
   def font_temp_filepath
-    temp_filepath("tmpfnt", ".ttf")
+    if @font_type == "ttf"
+      temp_filepath("tmpfnt", ".ttf")
+    else
+      temp_filepath("tmpfnt", ".otf")
+    end
   end
 
   def font_id(json_data)
@@ -70,8 +79,6 @@ class FontCreator
       raise ArgumentError.new("deco_type error") unless [0, 1, 2, 3, 4].include? ligature["deco_type"]
       raise ArgumentError.new("ligature") unless ligature["ligature"].kind_of?(String) && ligature["ligature"].size > 0
     end
-
-    raise ArgumentError.new("fonttype error") unless ["truetype"].include? obj["fonttype"]
   end
 
   class << self

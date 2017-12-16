@@ -1,3 +1,10 @@
+<%= javascript_tag do %>
+  document.addEventListener("DOMContentLoaded", function(e) {
+    createToggleEvent();
+  });
+  window.addEventListener("unload", function() {});
+<% end %>
+
 <div class="base">
 <h1>LigatureYourName</h1>
 
@@ -24,6 +31,20 @@
     </dl>
   </fieldset>
   <% end %>
+  <div class="detail">
+    <dl>
+      <dt>詳細</dt>
+      <dd>
+        <dl>
+          <dt>フォントの種類</dt>
+          <dd>
+            <%= label_tag "font_type_otf" do %><%= radio_button_tag "font_type", "otf", true, id: "font_type_otf" %>OpenType (PostScript)<% end %>
+            <%= label_tag "font_type_ttf" do %><%= radio_button_tag "font_type", "ttf", false, id: "font_type_ttf" %>TrueType<% end %>
+          </dd>
+        </dl>
+      </dd>
+    </dl>
+  </div>
   <div class="submit"><%= submit_tag "作成" %></div>
 <% end %>
 </div>

@@ -112,3 +112,12 @@ updateProgressState = (id, count) ->
 
     check: ->
       @perform 'check'
+
+@createToggleEvent = ->
+  elem = document.querySelector("div.detail > dl > dt")
+  if elem
+    elem.addEventListener "click", ->
+      if elem.parentNode.className == "opened"
+        elem.parentNode.className = ""
+      else
+        elem.parentNode.className = "opened"
