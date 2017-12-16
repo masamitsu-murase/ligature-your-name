@@ -157,7 +157,7 @@ fieldset {
     background-color: #7FC6A6;
 }
 
-div.detail, div#progress_bar_div {
+div.detail, div#progress_bar_div, div.sample {
     margin: 0em 10px 0em 10px;
     border: 2px solid #7FC6A6;
     padding: 0px 1em;
@@ -186,7 +186,7 @@ div.detail {
     }
 }
 
-div.submit, p.creating, p.download, p.error {
+div.submit, p.creating, p.download, p.error, div.sample_footer {
     margin: 0em 10px 0.5em 10px;
     border: 2px solid #7FC6A6;
     border-radius: 0px 0px 1em 1em;
@@ -230,4 +230,14 @@ input[type=submit], #font_file_link {
 p.creating, p.download, p.error {
     text-align: center;
     font-size: large;
+}
+
+div.sample {
+    textarea {
+        display: block;
+        width: 95%;
+        height: 10em;
+        margin: 5px auto;
+        padding: 0px;
+    }
 }
