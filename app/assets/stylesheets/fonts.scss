@@ -241,3 +241,12 @@ div.sample {
         padding: 0px;
     }
 }
+
+a.blog {
+    color: black;
+
+    &:hover {
+        background-color: black;
+        color: white;
+    }
+}
