@@ -5,6 +5,9 @@ class FontsController < ApplicationController
   TEMPFILE_DIR = LigatureYourName::TEMPFILE_DIR
   MAX_LIGATURE_SIZE = 10
 
+  def sample
+  end
+
   def create
     params_hash = params.to_unsafe_hash
     ligature_list = MAX_LIGATURE_SIZE.to_enum(:times).map{ |i| params_hash["font_data"]["ligature_list"][i.to_s] }.select(&:present?)
