@@ -97,6 +97,7 @@ fieldset {
 
 .deco_type > label {
     display: inline-block;
+    cursor: pointer;
 
     > input[type=radio] {
         display: none;
@@ -123,6 +124,7 @@ fieldset {
     display: none;
 }
 .bold > label {
+    cursor: pointer;
     display: block;
     background-color: #FFF;
     border-radius: 3em;
@@ -143,7 +145,7 @@ fieldset {
         content: "";
         width: 50%;
         height: 100%;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
     }
 
     > span {
@@ -155,12 +157,35 @@ fieldset {
     background-color: #7FC6A6;
 }
 
-div#progress_bar_div {
+div.detail, div#progress_bar_div {
     margin: 0em 10px 0em 10px;
     border: 2px solid #7FC6A6;
     padding: 0px 1em;
     background-color: #FFF;
 }
+div.detail {
+    > dl {
+        dt {
+            cursor: pointer;
+        }
+        > dt::before {
+            content: "\25B8\00A0";
+        }
+        > dd {
+            display: none;
+        }
+
+        &.opened {
+            > dt::before {
+                content: "\25BE\00A0"
+            }
+            > dd {
+                display: block;
+            }
+        }
+    }
+}
+
 div.submit, p.creating, p.download, p.error {
     margin: 0em 10px 0.5em 10px;
     border: 2px solid #7FC6A6;
